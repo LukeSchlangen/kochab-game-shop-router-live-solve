@@ -1,6 +1,7 @@
 let express = require('express');
 let app = express();
-const PORT = 4001;
+// if on heroku, use the provided port || use 4001
+const PORT = process.env.PORT || 4001;
 let bodyParser = require('body-parser');
 const gameCollection = []; // Contains objects e.g. {name: 'game name', cost: 0.99}
 
