@@ -20,10 +20,27 @@ app.get('/game', (req, res) => {
 app.post('/game', (req, res) => {
     console.log(req.body);
     let gameToAdd = req.body; // body.name & body.cost
+    let gameName = gameToAdd.name;
+    let gameCost = parseFloat(gameToAdd.cost);
+    gameToAdd.name += '!!!';
+    gameToAdd.tax = gameCost * 0.07;
+    gameToAdd.isClearance = isClearance(gameCost);
     gameCollection.push(gameToAdd);
     console.log(gameCollection);
     res.sendStatus(200);
 });
+
+// Checks whether a cost ends in .00
+function isClearance(cost) {
+    // 19.99 and 19.00
+    // 19.99 - 19 = 0.99
+    // 19.00 - 19 = 0
+    if (cost - Math.floor(cost) === 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 // Spin up the server
 app.listen(PORT, () => {
