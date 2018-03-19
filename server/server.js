@@ -1,8 +1,8 @@
-let express = require('express');
-let app = express();
+const express = require('express');
+const app = express();
 // if on heroku, use the provided port || use 4001
 const PORT = process.env.PORT || 4001;
-let bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const gameCollection = []; // Contains objects e.g. {name: 'game name', cost: 0.99}
 
 // Configures bodyParser for jQuery
@@ -23,7 +23,6 @@ app.post('/game', (req, res) => {
     let gameToAdd = req.body; // body.name & body.cost
     let gameName = gameToAdd.name;
     let gameCost = parseFloat(gameToAdd.cost);
-    gameToAdd.name += '!!!';
     gameToAdd.tax = gameCost * 0.07;
     gameToAdd.isClearance = isClearance(gameCost);
     gameCollection.push(gameToAdd);
