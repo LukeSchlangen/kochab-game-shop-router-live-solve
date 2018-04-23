@@ -1,5 +1,5 @@
 {
-  "name": "hadar-game-face",
+  "name": "game-shop-router-activity",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PrimeAcademy/hadar-game-face.git"
+    "url": "git+https://github.com/PrimeAcademy/game-shop-router-activity.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/PrimeAcademy/hadar-game-face/issues"
+    "url": "https://github.com/PrimeAcademy/game-shop-router-activity/issues"
   },
-  "homepage": "https://github.com/PrimeAcademy/hadar-game-face#readme",
+  "homepage": "https://github.com/PrimeAcademy/game-shop-router-activity#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.3"

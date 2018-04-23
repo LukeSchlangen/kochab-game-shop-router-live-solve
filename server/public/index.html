@@ -4,20 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Hadar Game Face</title>
+    <title>Game Shop</title>
     <link rel="stylesheet" href="styles/styles.css">
     <script src="vendors/jquery-3.3.1.js"></script>
     <script src="scripts/client.js"></script>
 </head>
 <body>
-    <h1>Hadar Game Face</h1>
-    <input type="text" placeholder="game name" id="gameName">
-    <input type="number" placeholder="cost" id="cost">
-    <button id="submitButton">Submit</button>
+    <h1>Game Shop</h1>
+    <h2>Games</h2>
+    <input type="text" placeholder="Game Name" id="gameName">
+    <input type="number" placeholder="Cost" id="cost">
+    <button id="submitGameButton">Submit</button>
     <table>
         <thead><tr><th>Name</th><th>Cost</th><th>Tax</th></tr></thead>
         <tbody id="gameContent">
             <!-- games will be appended here by jQuery -->
+        </tbody>
+    </table>
+    <h2>Employees</h2>
+    <input type="text" placeholder="Employee Name" id="employeeName">
+    <button id="submitEmployeeButton">Submit</button>
+    <table>
+        <thead><tr><th>Name</th><th>Cost</th><th>Tax</th></tr></thead>
+        <tbody id="employeeContent">
+            <!-- employees will be appended here by jQuery -->
         </tbody>
     </table>
 </body>

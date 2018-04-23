@@ -4,6 +4,19 @@ const app = express();
 const PORT = process.env.PORT || 4001;
 const bodyParser = require('body-parser');
 const gameCollection = []; // Contains objects e.g. {name: 'game name', cost: 0.99}
+const employeeList = []; // Contains objects e.g. {name: 'game name', cost: 0.99}
+
+// Checks whether a cost ends in .00
+const isClearance = (cost) => {
+    // 19.99 and 19.00
+    // 19.99 - 19 = 0.99
+    // 19.00 - 19 = 0
+    if (cost - Math.floor(cost) === 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 // Configures bodyParser for jQuery
 // MUST BE DONE BEFORE OUR app.post
@@ -19,28 +32,29 @@ app.get('/game', (req, res) => {
 
 // When we want to add a new game. 
 app.post('/game', (req, res) => {
-    console.log(req.body);
-    let gameToAdd = req.body; // body.name & body.cost
-    let gameName = gameToAdd.name;
-    let gameCost = parseFloat(gameToAdd.cost);
+    const gameToAdd = req.body; // body.name & body.cost
+    const gameName = gameToAdd.name;
+    const gameCost = parseFloat(gameToAdd.cost);
     gameToAdd.tax = gameCost * 0.07;
     gameToAdd.isClearance = isClearance(gameCost);
+    console.log('Game to add:', gameToAdd);
     gameCollection.push(gameToAdd);
     console.log(gameCollection);
     res.sendStatus(200);
 });
 
-// Checks whether a cost ends in .00
-function isClearance(cost) {
-    // 19.99 and 19.00
-    // 19.99 - 19 = 0.99
-    // 19.00 - 19 = 0
-    if (cost - Math.floor(cost) === 0) {
-        return true;
-    } else {
-        return false;
-    }
-}
+// Send back all the games.
+app.get('/employee', (req, res) => {
+    res.send(employeeList);
+});
+
+// When we want to add a new game. 
+app.post('/employee', (req, res) => {
+    const employeeToAdd = req.body; // body.name & body.cost
+    console.log('Employee to add:', employeeToAdd);
+    employeeList.push(employeeToAdd);
+    res.sendStatus(200);
+});
 
 // Spin up the server
 app.listen(PORT, () => {

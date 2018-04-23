@@ -2,26 +2,28 @@ $(document).ready(readyNow);
 
 function readyNow() {
     console.log('document ready');
-    $('#submitButton').on('click', submitGame);
+    $('#submitGameButton').on('click', submitGame);
+    $('#submitEmployeeButton').on('click', submitEmployee);
     // Get the games when the page loads
     getAllGames();
+    getAllEmployees();
 }
 
 function getAllGames() {
     $.ajax({
         type: 'GET',
         url: '/game'
-    }).done(function(response){
-        appendToDom(response); // The response is our gameCollection array
+    }).then(function (response) {
+        appendGamesToDom(response); // The response is our gameCollection array
     });
 }
 // Put the games on the DOM
-function appendToDom(gameCollection) {
+function appendGamesToDom(gameCollection) {
     $('#gameContent').empty();
-    for(let game of gameCollection) {
+    for (let game of gameCollection) {
         console.log('GAME:', game);
         let tr = $('<tr></tr>');
-        if(game.isClearance) {
+        if (game.isClearance) {
             tr.append('<td class="clearance">' + game.name + '</td>');
             tr.append('<td class="clearance">' + game.cost + '</td>');
             tr.append('<td class="clearance">' + game.tax + '</td>');
@@ -37,17 +39,51 @@ function appendToDom(gameCollection) {
 function submitGame() {
     let gameName = $('#gameName').val();
     let cost = $('#cost').val();
-    let gameToAdd = {name: gameName, cost: cost};
+    let gameToAdd = { name: gameName, cost: cost };
     $.ajax({
         type: 'post',
         data: gameToAdd,
         url: '/game'
-    }).done(function(response) {
+    }).then(function (response) {
         // our response from a POST will just be '200' success
         console.log('SUCCESS!');
         // Refresh our game list
         getAllGames();
-    }).fail(function(response) {
-        alert('Something went wrong...');
-    })
+    });
+}
+
+function getAllEmployees() {
+    $.ajax({
+        type: 'GET',
+        url: '/employee'
+    }).then(function (response) {
+        appendEmployeesToDom(response); // The response is our employeeList array
+    });
+}
+// Put the employees on the DOM
+function appendEmployeesToDom(employeeCollection) {
+    $('#employeeContent').empty();
+    employeeCollection.forEach(employee => {
+        let tr = $('<tr></tr>');
+        tr.append('<td>' + employee.name + '</td>');
+        $('#employeeContent').append(tr);
+
+    });
+
+}
+
+function submitEmployee() {
+    let employeeName = $('#employeeName').val();
+    let cost = $('#cost').val();
+    let employeeToAdd = { name: employeeName };
+    $.ajax({
+        type: 'post',
+        data: employeeToAdd,
+        url: '/employee'
+    }).then(function (response) {
+        // our response from a POST will just be '200' success
+        console.log('SUCCESS!');
+        // Refresh our employee list
+        getAllEmployees();
+    });
 }
